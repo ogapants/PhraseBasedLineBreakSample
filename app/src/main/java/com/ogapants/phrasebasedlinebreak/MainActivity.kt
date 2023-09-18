@@ -26,6 +26,7 @@ class PhraseBasedLineBreakTextView @JvmOverloads constructor(
 
     private var firstMeasuredHeight = 0
     private var onMeasureCount = 0
+    private var hasCalledOnMeasure = false
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         Log.d("PhraseBasedLineBreakTextView", "onMeasure: ****34__" + log())
@@ -39,9 +40,11 @@ class PhraseBasedLineBreakTextView @JvmOverloads constructor(
                 Log.d("PhraseBasedLineBreakTextView", "onMeasure: ****62__" + log())
                 setLineBreakWordStyleCompat(true)
             }
-        } else if (enablePhraseBasedLineBreak && firstMeasuredHeight < measuredHeight) {
+        } else if (!hasCalledOnMeasure && enablePhraseBasedLineBreak && firstMeasuredHeight < measuredHeight) {
             Log.d("PhraseBasedLineBreakTextView", "onMeasure: ****60__" + log())
             setLineBreakWordStyleCompat(false)
+            hasCalledOnMeasure = true
+            onMeasure(widthMeasureSpec, heightMeasureSpec) // fixme ?
         }
 
         onMeasureCount++
