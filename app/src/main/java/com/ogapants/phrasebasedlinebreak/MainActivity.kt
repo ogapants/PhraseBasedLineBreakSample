@@ -42,6 +42,7 @@ class PhraseBasedLineBreakTextView @JvmOverloads constructor(
         } else if (enablePhraseBasedLineBreak && firstMeasuredHeight < measuredHeight) {
             Log.d("PhraseBasedLineBreakTextView", "onMeasure: ****60__" + log())
             setLineBreakWordStyleCompat(false)
+            measure(widthMeasureSpec, heightMeasureSpec)
         }
 
         onMeasureCount++
